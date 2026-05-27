@@ -1,0 +1,5 @@
+**/target/
+**/*.a
+**/*.h
+!types.h
+.DS_Store
