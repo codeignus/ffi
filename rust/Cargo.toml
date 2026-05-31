@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 description = "Scratch-buffer helpers for Rust ↔ Go cgo exports"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/nevaria-ai/ffi"
+repository = "https://github.com/codeignus/ffi"
 build = "build.rs"
 
 [features]

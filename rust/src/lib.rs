@@ -1,7 +1,7 @@
 //! Rust ↔ Go scratch FFI. Does not call your exports.
 //!
-//! Layouts: `github.com/nevaria-ai/ffi/types.h`  
-//! Go helpers: `github.com/nevaria-ai/ffi/go/boundary`
+//! Layouts: `github.com/codeignus/ffi/types.h`  
+//! Go helpers: `github.com/codeignus/ffi/go/boundary`
 
 mod abi {
     #![allow(non_camel_case_types)]

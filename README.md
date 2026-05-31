@@ -7,8 +7,8 @@ Rust `#[repr(C)]` and Go boundary code mirror that header.
 
 | Part | Depend via |
 |------|------------|
-| `rust/` | `ffi = { git = "https://github.com/nevaria-ai/ffi" }` |
-| `go/` | `require github.com/nevaria-ai/ffi/go v0.x` |
+| `rust/` | `ffi = { git = "https://github.com/codeignus/ffi" }` |
+| `go/` | `require github.com/codeignus/ffi/go v0.x` |
 
 This library does not call your exports — you wire `extern` (Rust) and `//export` (Go).
 
@@ -35,7 +35,7 @@ func my_op_into(handle C.uintptr_t, callCtx *C.ffi_call_ctx) uint32 {
 }
 ```
 
-Set `CGO_CFLAGS=-I$(go list -m -f '{{.Dir}}' github.com/nevaria-ai/ffi/go)/..`.
+Set `CGO_CFLAGS=-I$(go list -m -f '{{.Dir}}' github.com/codeignus/ffi/go)/..`.
 
 ## Rust caller
 

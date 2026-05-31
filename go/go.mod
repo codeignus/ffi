@@ -1,3 +1,3 @@
-module github.com/nevaria-ai/ffi/go
+module github.com/codeignus/ffi/go
 
 go 1.22
