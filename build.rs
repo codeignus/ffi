@@ -3,7 +3,7 @@ use std::path::PathBuf;
 
 fn main() {
     let manifest = PathBuf::from(env::var("CARGO_MANIFEST_DIR").expect("CARGO_MANIFEST_DIR"));
-    let header = manifest.join("../types.h");
+    let header = manifest.join("types.h");
     let out = PathBuf::from(env::var("OUT_DIR").expect("OUT_DIR"));
     let out_file = out.join("ffi_types_bindings.rs");
 

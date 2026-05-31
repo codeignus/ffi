@@ -2,7 +2,7 @@
 package boundary
 
 /*
-#cgo CFLAGS: -I${SRCDIR}/../..
+#cgo CFLAGS: -I${SRCDIR}/..
 #include "types.h"
 */
 import "C"

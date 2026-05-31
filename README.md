@@ -2,17 +2,26 @@
 
 Rust-owned scratch buffer for Go `//export` handlers.
 
-`types.h` is the single ABI source of truth and is committed.
-Rust `#[repr(C)]` and Go boundary code mirror that header.
+`types.h` at the repo root is the single ABI source of truth.
+Rust bindgen and Go `boundary` both include it from there.
 
 | Part | Depend via |
 |------|------------|
-| `rust/` | `ffi = { git = "https://github.com/codeignus/ffi" }` |
-| `go/` | `require github.com/codeignus/ffi/go v0.x` |
+| Rust crate | `ffi = { git = "https://github.com/codeignus/ffi" }` |
+| Go package | `require github.com/codeignus/ffi v0.x` |
 
 This library does not call your exports — you wire `extern` (Rust) and `//export` (Go).
 
 ## Layout
+
+```
+ffi/
+  types.h       # ABI source of truth
+  Cargo.toml    # Rust library crate (repo root)
+  src/
+  go.mod        # Go module (repo root)
+  boundary/     # Go cgo helpers
+```
 
 One pointer per call: `ffi_call_ctx` header + trailing scratch bytes (same allocation).
 
@@ -23,19 +32,16 @@ One pointer per call: `ffi_call_ctx` header + trailing scratch bytes (same alloc
 ## Go export
 
 ```go
+import "github.com/codeignus/ffi/boundary"
+
 //export my_op_into
-func my_op_into(handle C.uintptr_t, callCtx *C.ffi_call_ctx) uint32 {
-    ctx := unsafe.Pointer(callCtx)
-    read, transportStatus := boundary.ReadCall(ctx)
+func my_op_into(handle C.uintptr_t, callCtx unsafe.Pointer) uint32 {
+    read, transportStatus := boundary.ReadCall(callCtx)
     if transportStatus != boundary.FfiStatusOk { return transportStatus.Uint32() }
-
     // decode read.Payload, run domain logic → out []byte
-
-    return boundary.WriteCall(ctx, read.WriteOff, out).Uint32()
+    return boundary.WriteCall(callCtx, read.WriteOff, out).Uint32()
 }
 ```
-
-Set `CGO_CFLAGS=-I$(go list -m -f '{{.Dir}}' github.com/codeignus/ffi/go)/..`.
 
 ## Rust caller
 

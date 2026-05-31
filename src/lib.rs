@@ -1,7 +1,7 @@
 //! Rust ↔ Go scratch FFI. Does not call your exports.
 //!
 //! Layouts: `github.com/codeignus/ffi/types.h`  
-//! Go helpers: `github.com/codeignus/ffi/go/boundary`
+//! Go helpers: `github.com/codeignus/ffi/boundary`
 
 mod abi {
     #![allow(non_camel_case_types)]
